@@ -1,0 +1,136 @@
+﻿div {
+    /* border: 1px solid red */
+}
+
+div.viewingWindow {
+    background-color:lavender;
+    margin: 10% auto 0px auto;
+    width: 500px;
+    overflow-x: hidden;
+    height: 75%;
+    padding: 0px
+}
+
+#roller {
+    width:1500px;
+    padding: 0px;
+    border: 0px solid blue;
+    position:relative;
+    left:0px
+}
+
+div.panel {
+    margin: 1px;
+    width: 496px;
+    height:100%;
+    float: left;
+    padding-bottom:20px
+}
+
+div.tabpanel {
+    margin: 0px auto;
+    width: 500px;
+    overflow-x: hidden;
+    height: 75%;
+    padding: 0px
+}
+
+#prompt {
+    margin:auto;
+    width:90%;
+    border: 2px dotted #1e1e1e
+}
+
+div.row {
+    border-width: 0px;
+    width: 100%;
+    padding:0px;
+    overflow-x:visible;
+    display:flex;
+    justify-content:space-between;
+}
+
+div.button {
+    background-color:lightsteelblue;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:65px;
+    width:31%;
+    margin: 5px 0px;
+    border-radius:5px
+}
+
+div.button:active {
+    background-color:darkblue;
+    color:white
+}
+
+div.button > div {
+    border-width: 0px;
+    vertical-align:middle
+}
+
+#positive {
+    background-color:darkblue;
+    color:white
+}
+
+#resetStats {
+    float: right;
+    margin: 5px;
+}
+
+div.tab {
+    text-align:center;
+    font-size:large;
+    float:left;
+    margin: 0px;
+    width: 15%;
+    padding: 3px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px
+}
+
+#prompt {
+    text-align:center;
+    font-size:18pt
+}
+
+#prompt > div {
+    border-width: 0px;
+}
+
+#trigRatios {
+    border:0px;
+    padding:0px;
+    width: 90%;
+    margin:auto
+}
+
+#rootThreeOverThree, #twoRootThreeOverThree, #negative, #positive {
+    width:48%
+}
+
+h1 {
+    text-align:center
+}
+
+h2 {
+    position:relative;
+    left:15px
+}
+
+#settingsRight {
+    float:right
+}
+
+fieldset {
+    width: 90%;
+    margin: 15px auto;
+}
+
+body {
+    background-color: #1e1e1e
+}
+

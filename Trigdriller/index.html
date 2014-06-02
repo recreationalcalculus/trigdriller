@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Trig Driller</title>
+    <link rel="stylesheet" href="main.css" />
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript">
+        
+        panels = Object.freeze({ INPUT: 'input', STATS: 'stats', SETTINGS: 'settings' });
+
+        function showPanel(panel) {
+            if(panel==panels.INPUT)
+            {
+                document.getElementById("roller").style.left = "0px";
+                document.getElementById('showInputPanel').style.backgroundColor = "lavender";
+                document.getElementById('showStatsPanel').style.backgroundColor = "lightsteelblue";
+                document.getElementById('showSettingsPanel').style.backgroundColor = "lightsteelblue";
+            }
+
+            else if (panel == panels.STATS)
+            {
+                document.getElementById("roller").style.left = "-500px";
+                document.getElementById('showInputPanel').style.backgroundColor = "lightsteelblue";
+                document.getElementById('showStatsPanel').style.backgroundColor = "lavender";
+                document.getElementById('showSettingsPanel').style.backgroundColor = "lightsteelblue";
+            }
+
+            else // panel == panels.SETTINGS
+            {
+                document.getElementById("roller").style.left = "-1000px";
+                document.getElementById('showInputPanel').style.backgroundColor = "lightsteelblue";
+                document.getElementById('showStatsPanel').style.backgroundColor = "lightsteelblue";
+                document.getElementById('showSettingsPanel').style.backgroundColor = "lavender";
+            }
+        }
+    </script>
+    <script type="text/javascript" src="trigDriller.js"></script>
+</head>
+<body onload="showPanel(panels.INPUT);">
+    <div class="viewingWindow">
+        <div id="roller">
+            <div id="inputPanel" class="panel">
+                <h1>Trig Driller</h1>
+                <div id="prompt">Press Any Button To Begin.</div><br />
+                <div id="trigRatios">
+                    <div id="row1" class="row">
+                        <div id="zero" class="button" onclick="javascript:checkAnswer('zero')">\[ 0 \]</div>
+                        <div id="one" class="button" onclick="javascript:checkAnswer('one')">\[ 1 \]</div>
+                        <div id="two" class="button" onclick="javascript:checkAnswer('two')">\[ 2 \]</div>
+                    </div>
+                    <div id="row2" class="row">
+                        <div id="half" class="button" onclick="javascript:checkAnswer('half')">\[ \frac{1}{2} \]</div>
+                        <div id="rootTwoOverTwo" class="button" onclick="javascript: checkAnswer('rootTwoOverTwo')">\[ \frac{\sqrt{2}}{2} \]</div>
+                        <div id="rootThreeOverTwo" class="button" onclick="javascript: checkAnswer('rootThreeOverTwo')">\[ \frac{\sqrt{3}}{2} \]</div>
+                    </div>
+                    <div id="row3" class="row">
+                        <div id="rootThreeOverThree" class="button" onclick="javascript: checkAnswer('rootThreeOverThree')">\[ \frac{\sqrt{3}}{3} \]</div>
+                        <div id="twoRootThreeOverThree" class="button" onclick="javascript: checkAnswer('twoRootThreeOverThree')">\[ \frac{2\sqrt{3}}{3} \]</div>
+                    </div>
+                    <div id="row4" class="row">
+                        <div id="rootTwo" class="button" onclick="javascript: checkAnswer('rootTwo')">\[ \sqrt{2} \]</div>
+                        <div id="rootThree" class="button" onclick="javascript: checkAnswer('rootThree')">\[ \sqrt{3} \]</div>
+                        <div id="undefined" class="button" onclick="javascript: checkAnswer('undefined')"><code>undefined</code></div>
+                    </div>
+                    <div id="row5" class="row">
+                        <div id="negative" class="button" onclick="javascript:setNegative()">\[ - \]</div>
+                        <div id="positive" class="button" onclick="javascript:setPositive()">\[ + \]</div>
+                    </div>
+                </div>
+            </div>
+            <div id="statsPanel" class="panel">
+                <h1>Stats</h1>
+                <hr />
+                <h2>Attempted: <span id="attempted">0</span></h2>
+                <hr />
+                <h2>Correct: <span id="correct">0</span></h2>
+                <hr />
+                <h2>Percent: <span id="percent">0</span>%</h2>
+                <hr />
+                <h2>Current Streak: <span id="currentStreak">0</span></h2>
+                <hr />
+                <div id="resetStats" class="button" onclick="javascript:reset()">RESET</div>
+            </div>
+            <div id="settingsPanel" class="panel">
+                <h1>Settings</h1>
+                <form onchange="javascript:generatePrompt()">
+                    <fieldset>
+                        <legend>Unit</legend>
+                        <input type="radio" name="unit" id="unit_r" value="radians" checked /><label>Radians</label>
+                        <input type="radio" name="unit" id="unit_d" value="degrees" /><label>Degrees</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Angles</legend>
+                        <table style="float:left">
+                            <caption>Quadrants:</caption>
+                            <tr style="border-bottom:1px solid black">
+                                <td><input type="checkbox" id="Q2" style="border-right:1px solid black"/><label>II</label></td>
+                                <td><input type="checkbox" id="Q1" checked/><label>I</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="Q3" style="border-right:1px solid black" /><label>III</label></td>
+                                <td><input type="checkbox" id="Q4" /><label>IV</label></td>
+                            </tr>
+                        </table>
+                        <table style="float:right">
+                            <tr><td><input type="checkbox" id="negatives" /><label>Allow negative angles?</label></td></tr>
+                            <tr><td><input type="checkbox" id="biggerThanPi" /><label>Allow angles larger than \( \pi \) (180&deg;)?</label></td></tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Functions</legend>
+                        <table>
+                            <tr>
+                                <td><input type="checkbox" id="sine" checked /><label>sin</label></td>
+                                <td><input type="checkbox" id="cosine" checked /><label>cos</label></td>
+                                <td><input type="checkbox" id="tangent" checked /><label>tan</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" id="cosecant" disabled /><label>csc</label></td>
+                                <td><input type="checkbox" id="secant" disabled /><label>sec</label></td>
+                                <td><input type="checkbox" id="cotangent" disabled /><label>cot</label></td>
+                            </tr>
+                        </table>
+                   </fieldset>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <div class="tabpanel">
+        <div id="showInputPanel" class="tab" onclick="javascript:showPanel(panels.INPUT)">Driller</div>
+        <div id="showStatsPanel" class="tab" onclick="javascript:showPanel(panels.STATS)">Stats</div>
+        <div id="showSettingsPanel" class="tab" onclick="javascript:showPanel(panels.SETTINGS)">Settings</div>
+    </div>
+</body>
+</html>
